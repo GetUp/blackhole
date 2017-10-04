@@ -4,7 +4,7 @@ const conString = process.env.DATABASE_URL;
 const query = 'INSERT INTO isolated.webhooks(payload) VALUES($1);';
 
 module.exports.hello = (event, context, callback) => {
-  console.log({webhook_received: new Date, event: event});
+  console.log({webhook_received: new Date, event: JSON.stringify(event)});
 
   const response = {
     statusCode: 200,
@@ -12,12 +12,21 @@ module.exports.hello = (event, context, callback) => {
   };
   const client = new pg.Client(conString);
 
-  client.connect(function(err) {
-    if (err) return callback(err);
-    client.query(query, [JSON.stringify(event)], function(e, result) {
+  client.connect(err => {
+    if (err) return handleError(err, callback);
+    client.query(query, [JSON.stringify(event)], (e, result) => {
       client.end();
-      if (e) return callback(e);
+      if (e) return handleError(e, callback);
       callback(null, response);
     });
   });
 };
+
+function handleError(err, cb) {
+  console.error({error: JSON.stringify(err)});
+  const response = {
+    statusCode: 500,
+    body: JSON.stringify({ error: 'see cloudwatch logs for details' }),
+  };
+  cb(response);
+}
