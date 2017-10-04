@@ -1,7 +1,7 @@
 'use strict';
 const pg = require('pg');
 const conString = process.env.DATABASE_URL;
-const query = 'INSERT INTO isolated.webhooks(payload) VALUES($1);';
+const query = 'INSERT INTO isolated.blackhole(payload) VALUES($1);';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
