@@ -21,3 +21,4 @@ functions:
       - http:
           path: blackhole
           method: post
+          cors: true

@@ -3,11 +3,18 @@ const pg = require('pg');
 const conString = process.env.DATABASE_URL;
 const query = 'INSERT INTO isolated.webhooks(payload) VALUES($1);';
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-requested-with',
+  'Access-Control-Allow-Methods': 'GET,OPTIONS'
+};
+
 module.exports.hello = (event, context, callback) => {
   console.log({webhook_received: new Date, event: JSON.stringify(event)});
 
   const response = {
     statusCode: 200,
+    headers: corsHeaders,
     body: JSON.stringify({ message: 'OK' }),
   };
   const client = new pg.Client(conString);
@@ -26,6 +33,7 @@ function handleError(err, cb) {
   console.error({error: JSON.stringify(err)});
   const response = {
     statusCode: 500,
+    headers: corsHeaders,
     body: JSON.stringify({ error: 'see cloudwatch logs for details' }),
   };
   cb(response);
