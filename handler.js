@@ -14,7 +14,7 @@ module.exports.hello = (event, context, callback) => {
 
   client.connect(err => {
     if (err) return handleError(err, callback);
-    client.query(query, [JSON.stringify(event)], (e, result) => {
+    client.query(query, [JSON.stringify(event)], e => {
       client.end();
       if (e) return handleError(e, callback);
       callback(null, response);
