@@ -38,5 +38,5 @@ module.exports.hello = (event, context, callback) => {
 
 function handleError(err, cb) {
   console.error({error: JSON.stringify(err)});
-  cb(errorResponse);
+  cb(null, errorResponse);
 }
