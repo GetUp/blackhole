@@ -1,9 +1,6 @@
 {
   "name": "blackhole",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "devDependencies": {
     "eslint": "4.8.0",
     "serverless": "1.23.0"

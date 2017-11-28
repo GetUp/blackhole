@@ -15,8 +15,8 @@ provider:
       Resource: "*"
 
 functions:
-  hello:
-    handler: handler.hello
+  blackhole:
+    handler: index.process
     events:
       - http:
           path: blackhole

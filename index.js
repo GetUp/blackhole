@@ -21,7 +21,7 @@ const errorResponse = {
   body: JSON.stringify({ error: 'see cloudwatch logs for details' }),
 };
 
-module.exports.hello = (event, context, callback) => {
+module.exports.process = (event, context, callback) => {
   console.log({webhook_received: new Date, event: JSON.stringify(event)});
 
   const client = new pg.Client(conString);
