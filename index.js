@@ -1,5 +1,6 @@
 'use strict';
 const pg = require('pg');
+const qs = require('qs');
 const conString = process.env.DATABASE_URL;
 const query = 'INSERT INTO isolated.blackhole(payload) VALUES($1);';
 
@@ -28,7 +29,9 @@ module.exports.process = (event, context, callback) => {
 
   client.connect(err => {
     if (err) return handleError(err, callback);
-    client.query(query, [JSON.stringify(event)], e => {
+    const body = { body: qs.parse(event.body) };
+    const payload = Object.assign({}, event.queryStringParameters, body);
+    client.query(query, [JSON.stringify(payload)], e => {
       client.end();
       if (e) return handleError(e, callback);
       callback(null, successResponse);
