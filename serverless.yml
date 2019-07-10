@@ -27,7 +27,7 @@ functions:
     handler: index.process
     events:
       - http:
-          path: blackhole
+          path: /
           method: post
           cors: true
     environment:
