@@ -23,7 +23,7 @@ const errorResponse = {
 };
 
 module.exports.process = (event, context, callback) => {
-  console.log({webhook_received: new Date, event: JSON.stringify(event)});
+  console.log({ webhook_received: new Date, event: JSON.stringify(event) });
 
   const client = new pg.Client(conString);
 
@@ -40,6 +40,6 @@ module.exports.process = (event, context, callback) => {
 };
 
 function handleError(err, cb) {
-  console.error({error: JSON.stringify(err)});
+  console.error({ error: JSON.stringify(err) });
   cb(null, errorResponse);
 }
