@@ -2,9 +2,17 @@ service: blackhole
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs10.x
   stage: prod
-  region: us-east-1
+  region: ap-southeast-2
+  vpc:
+    securityGroupIds:
+      - sg-b13c2dd6 # default
+      - sg-02ececde65ebad2b6 # trusted IPs
+    subnetIds:
+      - subnet-038ab4cdfc5bc874e
+      - subnet-0e9f9ef7e18896420
+      - subnet-09daaf3887ffc0723
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -22,3 +30,5 @@ functions:
           path: blackhole
           method: post
           cors: true
+    environment:
+      DATABASE_URL: ${env:DATABASE_URL}
