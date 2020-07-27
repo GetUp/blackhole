@@ -2,12 +2,12 @@
   "name": "blackhole",
   "private": true,
   "dependencies": {
-    "pg": "^7.11.0",
-    "qs": "^6.7.0"
+    "pg": "^8.3.0",
+    "qs": "^6.9.4"
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "serverless": "^1.46.1"
+    "eslint": "^7.5.0",
+    "serverless": "^1.76.1"
   },
   "scripts": {
     "deploy": "set -u && DATABASE_URL=$BLACKHOLE_DATABASE_URL ./node_modules/.bin/sls deploy"
