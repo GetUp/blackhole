@@ -29,8 +29,8 @@ module.exports.process = (event, context, callback) => {
 
   client.connect(err => {
     if (err) return handleError(err, callback);
-    const body = { body: qs.parse(event.body) };
-    const payload = Object.assign({}, event.queryStringParameters, body);
+    const body = /www-form-urlencoded/.test(event.headers['Content-Type']) ? qs.parse(event.body) : JSON.parse(event.body)
+    const payload = Object.assign({}, event.queryStringParameters, { body });
     client.query(query, [JSON.stringify(payload)], e => {
       client.end();
       if (e) return handleError(e, callback);
